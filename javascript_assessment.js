@@ -13,7 +13,7 @@ var parse_csv = function( csv_data ){
 	var rows = csv_data.split("\n")
 
 	for( row in rows){
-		rows[row].split(",")
+		console.log(rows[row].split(","))
 	}
 }
 
