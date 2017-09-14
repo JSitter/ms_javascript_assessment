@@ -8,6 +8,7 @@ var fetch_csv = function(){
 	fetch('./MOCK_DATA.csv').then(function(response){
 		response.text().then((response)=>{
 			userData = parse_csv(response);
+			console.log(userData)
 		});
 	});
 };
