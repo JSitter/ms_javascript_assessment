@@ -1,28 +1,37 @@
+
+var userData = {};
+
 var fetch_csv = function(){
 	//load csv file
 	var csv_data;
 	//fetch csv data
 	fetch('./MOCK_DATA.csv').then(function(response){
 		response.text().then((response)=>{
-			parse_csv(response);
-		})
+			userData = parse_csv(response);
+		});
 	});
 };
 
-var parse_csv = function( csv_data ){
+var parse_csv = function( csv_data ) {
 	var rows = csv_data.split("\n");
 
 	//get column titles from first row
-	titles = rows[0].split(',');
+	var titles = rows[0].split(',');
 
 	var people_object = {};
 
-	for(i=1; i<10; i++){
-		cells = rows[i].split(',')
-		console.log(cells[0])
-		people_object["mayonnaisse"]=cells[1]
-	}
-	console.log(people_object);
+	for(var i = 1; i < rows.length; i++) {
+		cells = rows[i].split(',');
+		var person_obj = {};
+		for( cell in cells ){
+			person_obj[titles[cell]] = cells[cell];
+		};
+		let id = person_obj.id.toString();
+		people_object[id] = person_obj;
+
+	};
+
+	return people_object;
 };
 
 fetch_csv();
