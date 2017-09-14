@@ -21,16 +21,38 @@ var parse_csv = function( csv_data ) {
 
 	var people_object = {};
 
-	for(var i = 1; i < rows.length; i++) {
+	for(var i = 1; i < 10; i++) {
 		cells = rows[i].split(',');
 		var person_obj = {};
 		for( cell in cells ){
-			person_obj[titles[cell]] = cells[cell];
+			if(titles[cell] == "age"){
+				person_obj[titles[cell]] = parseInt(cells[cell]);
+
+			} else if(titles[cell] == "rating"){
+				person_obj[titles[cell]] = parseFloat(cells[cell]);
+
+			} else if(titles[cell] == "date"){
+				date_obj = new Date(cells[cell] * 1000);
+				person_obj[titles[cell]] = date_obj.toUTCString();
+
+			} else if(titles[cell] == "id"){
+				person_obj[titles[cell]] = parseInt(cells[cell]);
+			}else{
+				person_obj[titles[cell]] = cells[cell];
+			}
+
 		};
 		let id = person_obj.id.toString();
 		people_object[id] = person_obj;
 
 	};
+	// if(titles[cell] == "age"){
+	// 	person_obj[titles[cell]] = parseInt(cells[cell]);
+	// } else if(titles[cell] == "rating"){
+	// 	person_obj[titles[cell]] = parseFloat(cells[cell]);
+	// } else if(titles[cell] == "date")
+	// person_obj[titles[cell]] = cells[cell];
+
 
 	return people_object;
 };
