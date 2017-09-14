@@ -26,8 +26,17 @@ var parse_csv = function( csv_data ) {
 		cells = rows[i].split(',');
 		var person_obj = {};
 
-		//iterate through cells and format numbers and create person_obj
+		//iterate through cells, format numbers, and create person_obj
 		for( cell in cells ){
+
+			//create concatenated name and round rating entries on last loop
+			if(titles[cell]=="date"){
+				let fullName = person_obj["first_name"] + " " + person_obj["last_name"];
+				let round_rating = person_obj["rating"].toPrecision(2)
+				person_obj["fullName"] = fullName
+				person_obj["rating2"] = round_rating
+			}
+
 			if(titles[cell] == "age"){
 				person_obj[titles[cell]] = parseInt(cells[cell]);
 
@@ -40,7 +49,8 @@ var parse_csv = function( csv_data ) {
 
 			} else if(titles[cell] == "id"){
 				person_obj[titles[cell]] = parseInt(cells[cell]);
-			}else{
+
+			} else{
 				person_obj[titles[cell]] = cells[cell];
 			}
 		};
